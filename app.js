@@ -124,7 +124,9 @@ app.use((error , req, res ,next)=>
 mongoose.connect(MONGODB_URI)
  .then(res =>
   {
-    app.listen(process.env.PORT || 3000,()=>{
+    const PORT = process.env.PORT || 3000 ;
+    console.log(PORT);
+    app.listen(PORT,()=>{
       console.log("listning on the port 3000  & connected with shop");
     });
   })
