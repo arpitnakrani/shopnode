@@ -121,13 +121,15 @@ app.use((error , req, res ,next)=>
 })
 
 //connect with db and run on server
-mongoose.connect(MONGODB_URI)
+const PORT = process.env.PORT || 3000 ;
+app.listen(PORT,()=>{
+  console.log("listning on the port 3000");
+  mongoose.connect(MONGODB_URI)
  .then(res =>
   {
-    const PORT = process.env.PORT || 3000 ;
-    console.log(PORT);
-    app.listen(PORT,()=>{
-      console.log("listning on the port 3000  & connected with shop");
-    });
+    console.log("database connected succesfully");
+    
   })
   .catch(err => console.log(err));
+
+});
