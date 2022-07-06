@@ -54,7 +54,7 @@ const fileFilter = (req,file,cb) =>
 }
 
 app.use(helmet()); //helmet is used to add the security header to every response we are sending to the browser.
-app.use(compression()); //it is used to compress files like css files it will be catch by browser automatically it makes process faster. if weuse hosting provider they can do it by their self ..you must not set compression after hosting
+//app.use(compression()); //it is used to compress files like css files it will be catch by browser automatically it makes process faster. if weuse hosting provider they can do it by their self ..you must not set compression after hosting
 app.use(multer({storage : storage , fileFilter : fileFilter}).single("image"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
