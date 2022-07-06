@@ -12,7 +12,7 @@ const router = express.Router();
 router.get('/products', shopController.getProducts);
 
 
-router.get('/', shopController.getIndex);
+router.get('/start', shopController.getIndex);
 router.get('/cart',isAuth, shopController.getCart);
 router.post('/cart',isAuth, shopController.postCart);
 router.get("/checkout" , isAuth , shopController.getCheckout);
