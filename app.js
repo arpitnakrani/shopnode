@@ -11,8 +11,8 @@ const session = require("express-session");
 var MongoDBStore = require('connect-mongodb-session')(session);
 const helmet = require("helmet");
 const compression = require("compression");
-var store = new MongoDBStore({
 
+var store = new MongoDBStore({
   uri: MONGODB_URI ,
   collection: 'sessions'
 
@@ -124,7 +124,8 @@ app.use((error , req, res ,next)=>
 mongoose.connect(MONGODB_URI)
  .then(res =>
   {
-    app.listen(process.env.PORT || 3000);
-    console.log("listning on the port 3000  & connected with shop");
+    app.listen(process.env.PORT || 3000,()=>{
+      console.log("listning on the port 3000  & connected with shop");
+    });
   })
   .catch(err => console.log(err));
