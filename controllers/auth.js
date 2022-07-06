@@ -75,7 +75,7 @@ exports.postLogin =  (req,res,next) =>
             req.session.user = user;
             return req.session.save((err)=>
             {
-              res.redirect("/shop");    // no need to save the session but in case loading defects we can make use of that
+              res.redirect("/");    // no need to save the session but in case loading defects we can make use of that
             })
           })
     })
@@ -92,7 +92,7 @@ exports.postLogout =  (req,res,next) =>
     req.session.destroy( (err)=>
     {
       console.log(err);
-      res.redirect("/shop");
+      res.redirect("/");
     })
 }
 
@@ -222,7 +222,7 @@ exports.postReset = (req,res,next)=>
         })
         .then(result =>
           {
-            res.redirect("/shop");
+            res.redirect("/");
             var mailOptions = {
               from: 'arpitnakrani2580@gmail.com',
               to: email,
