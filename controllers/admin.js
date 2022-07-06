@@ -76,14 +76,14 @@ exports.postAddProduct = (req, res, next) => {
 exports.getEditProduct = (req, res, next) => {
   const editMode = req.query.edit;
   if (!editMode) {
-    return res.redirect('/');
+    return res.redirect('/shop');
   }
   const prodId = req.params.productId;
   Product.findById(prodId)
     // Product.findById(prodId)
     .then(product => {
       if (!product) {
-        return res.redirect('/');
+        return res.redirect('/shop');
       }
       res.render('admin/edit-product', {
         pageTitle: 'Edit Product',
@@ -133,7 +133,7 @@ exports.postEditProduct = (req, res, next) => {
       if(product.userId.toString() !== req.user._id.toString())
       {
         console.log("user is not allowed to edit ");
-        return res.redirect("/")
+        return res.redirect("/shop")
       }
       product.title = updatedTitle;
       product.price = updatedPrice;
