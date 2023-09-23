@@ -23,6 +23,7 @@ jobs:
 
       - name: Debug SSH_PRIVATE_KEY
         run: echo ${{ secrets.node-shop123.SSH_PRIVATE_KEY }}
+        
 
       - name: Deploy to EC2
         run: |
