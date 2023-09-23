@@ -1,17 +1,35 @@
-name: Node.js CI
+name: Node.js CI/CD
 
-on: [push]
+on:
+  push:
+    branches:
+      - main  # Adjust this to the branch you want to deploy from
 
 jobs:
-  build:
-
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
-          node-version: '14.0.0'
-      - run: npm install
-      - run: npm run build --if-present
+          node-version: '12.22.9'  # Adjust to your desired Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build --if-present
+
+      - name: Deploy to EC2
+        run: |
+          ssh-keyscan -H 35.154.90.106 >> ~/.ssh/known_hosts
+          chmod 600 ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ec2-user@35.154.90.106 'cd /test-dev && git pull && npm install && npm start
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          # Replace `your_ec2_instance_ip`, `/path/to/your/app`, `your_app_name`, etc. with your specific values
+
