@@ -24,12 +24,14 @@ jobs:
       - name: Build
         run: npm run build --if-present
 
+      - name: Debug SSH_PRIVATE_KEY
+        run: echo ${{ secrets.SSH_PRIVATE_KEY }}
+
+
       - name: Deploy to EC2
         run: |
-          # ssh-keyscan -H 35.154.90.106 >> ~/.ssh/known_hosts
           chmod 600 ${{ secrets.SSH_PRIVATE_KEY }}
           ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ubuntu@35.154.90.106 'cd /test-dev && git pull && npm install && npm start
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          # Replace `your_ec2_instance_ip`, `/path/to/your/app`, `your_app_name`, etc. with your specific values
 
