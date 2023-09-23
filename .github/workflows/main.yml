@@ -22,10 +22,9 @@ jobs:
         run: npm run build --if-present
 
       - name: Debug SSH_PRIVATE_KEY
-        run: echo ${{ secrets.node-shop123.SSH_PRIVATE_KEY }}
-        
+        run: echo ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Deploy to EC2
         run: |
-          chmod 600 ${{ secrets.node-shop123.SSH_PRIVATE_KEY }}
-          ssh -i ${{ secrets.node-shop123.SSH_PRIVATE_KEY }} ubuntu@35.154.90.106 'cd /test-dev && git pull && npm install && npm start'
+          chmod 600 ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ubuntu@35.154.90.106 'cd /test-dev && git pull && npm install && npm start'
